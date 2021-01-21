@@ -28,7 +28,7 @@ const createSearchConfig = (indexName, language) => {
       normalizer: ({ data }) => {
         return IS_DEV
           ? []
-          : data.allMarkdownRemark.nodes.map((node) => ({
+          : data.allMarkdownRemark.nodes.map(node => ({
               id: node.id,
               part: node.frontmatter.part,
               letter: node.frontmatter.letter,
@@ -132,6 +132,19 @@ const plugins = [
       siteUrl: `https://fullstackopen.com`,
     },
   },
+
+  {
+    resolve: 'gatsby-plugin-eslint',
+    options: {
+      test: /\.js$|\.jsx$/,
+      exclude: /(node_modules|.cache|public)/,
+      stages: ['develop'],
+      options: {
+        emitWarning: true,
+        failOnError: false,
+      },
+    },
+  },
 ];
 
 module.exports = {
@@ -141,18 +154,5 @@ module.exports = {
     author: 'Houston Inc. Consulting oy',
     siteUrl: 'https://fullstack-hy2020.github.io/',
   },
-  plugins: [
-    {
-      resolve: 'gatsby-plugin-eslint',
-      options: {
-        test: /\.js$|\.jsx$/,
-        exclude: /(node_modules|.cache|public)/,
-        stages: ['develop'],
-        options: {
-          emitWarning: true,
-          failOnError: false,
-        },
-      },
-    },
-  ],
+  plugins,
 };
