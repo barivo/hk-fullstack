@@ -10,6 +10,7 @@ on:
 
 jobs:
   build:
+    if: ${{ github.event_name == 'push' &&  contains(join(toJson(github.event.commits.*.message)), '#pipeline') }}
     name: deploy
     runs-on: ubuntu-latest
     steps:
